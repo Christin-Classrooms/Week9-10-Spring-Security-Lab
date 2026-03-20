@@ -13,19 +13,22 @@
                     <a class="nav-link" th:href="@{/players}">Players</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/create-player}">Create Player</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" th:href="@{/fighters}">Fighters</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/create-fighter}">Create Fighter</a>
+                    <a class="nav-link" sec:authorize="hasRole('ADMIN')" th:href="@{/create-fighter}">Create Fighter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="hasRole('ADMIN')" href="/h2-console">H2 Console</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search" method="get" th:action="@{/players}">
-                <input name="id" class="form-control me-2" type="search" placeholder="Player ID" aria-label="Search"/>
-                <button class="btn btn-outline-light" type="submit">Search</button>
-            </form>
-        </div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-light small">
+                    Logged in as <strong th:text="${#authentication.name}"></strong>
+                </span>
+                <form method="post" action="/logout" class="m-0">
+                    <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                </form>
+            </div>
     </div>
 </nav>

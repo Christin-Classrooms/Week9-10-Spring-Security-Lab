@@ -29,7 +29,7 @@
                 <div style="min-width: 150px;">
                     <label for="sort-select" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">Sort By</label>
                     <select id="sort-select" name="sort" onchange="this.form.submit();" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="name" th:selected="${sort == 'name'}">Name</option>
+                        <option value="username" th:selected="${sort == 'username'}">Name</option>
                         <option value="id" th:selected="${sort == 'id'}">ID</option>
                         <option value="email" th:selected="${sort == 'email'}">Email</option>
                     </select>
@@ -105,7 +105,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="player : ${players}" style="border-bottom: 1px solid #eee; transition: background-color 0.2s;">
-                    <td style="padding: 15px; color: #0066cc; cursor: pointer;" th:text="${player.name}">John Doe</td>
+                    <td style="padding: 15px; color: #0066cc; cursor: pointer;" th:text="${player.username}">John Doe</td>
                     <td style="padding: 15px; color: #666;" th:text="${player.email}">john@example.com</td>
                     <td style="padding: 15px; color: #999; font-size: 14px;" th:text="${player.id}">1</td>
                 </tr>

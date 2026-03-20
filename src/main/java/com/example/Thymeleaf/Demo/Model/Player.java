@@ -1,6 +1,18 @@
 package com.example.Thymeleaf.Demo.Model;
 
-import jakarta.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -13,20 +25,34 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Player {
+public class Player implements UserDetails {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Size(min=2, max=240, message="name size must be > 2 and <240")
     @NotBlank(message="The name is required")
-    private String name;
-    @NotBlank(message = "The email is not required")
+    private String username;
+    
+    @NotBlank(message = "The email is required")
     @Email(message = "invalid email")
     private String email;
+    
+    @Column(nullable=false)
+    private String password;
 
+    @Column(nullable=false)
+    private String role ="PLAYER";
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
+    }
 
-
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
 }
