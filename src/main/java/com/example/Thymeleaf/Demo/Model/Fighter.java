@@ -1,43 +1,40 @@
 package com.example.Thymeleaf.Demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "fighters")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Fighter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @NotBlank(message = "Fighter name is required")
-    @Size(min=2, max=240, message="Name must be between 2 and 240 characters")
+
+    @NotBlank
     private String name;
-    
-    @NotNull(message = "Health is required")
-    @Min(value=1001, message="Health must be more than 1000")
-    @Max(value=1499, message="Health must be less than 1500")
+
+    @NotNull
     private Integer health;
-    
-    @NotNull(message = "Damage is required")
-    @DecimalMin(value="0.0", inclusive=true, message="Damage must be at least 0")
-    @DecimalMax(value="99.99", inclusive=true, message="Damage must be less than 100")
+
+    @NotNull
     private Double damage;
-    
-    @NotNull(message = "Resistance is required")
-    @DecimalMin(value="0.0", inclusive=true, message="Resistance must be at least 0")
-    @DecimalMax(value="10.0", inclusive=true, message="Resistance must be at most 10")
+
+    @NotNull
     private Double resistance;
 
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public Integer getHealth() { return health; }
+    public void setHealth(Integer health) { this.health = health; }
+
+    public Double getDamage() { return damage; }
+    public void setDamage(Double damage) { this.damage = damage; }
+
+    public Double getResistance() { return resistance; }
+    public void setResistance(Double resistance) { this.resistance = resistance; }
 }
