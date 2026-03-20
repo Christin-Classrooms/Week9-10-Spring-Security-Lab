@@ -13,7 +13,7 @@
         <h2>Fighters List</h2>
 
         <!-- Search / Filter Form -->
-        <form th:action="@{/fighters/}" method="get" class="mb-3">
+        <form th:action="@{/fighters}" method="get" class="mb-3">
             <input type="text" name="search" th:value="${search}" placeholder="Search by name" class="form-control mb-2"/>
             <select name="filterType" class="form-control mb-2">
                 <option th:value="all" th:selected="${filterType=='all'}">All</option>
@@ -31,31 +31,31 @@
             <thead>
                 <tr>
                     <th>
-                        <a th:href="@{/fighters/(sort='id', direction=${sort=='id' && direction=='ASC' ? 'DESC' : 'ASC'}, 
+                        <a th:href="@{/fighters(sort='id', direction=${sort=='id' && direction=='ASC' ? 'DESC' : 'ASC'}, 
                         search=${search}, filterType=${filterType})}">
                             ID <span th:text="${sort=='id' ? (direction=='ASC' ? '▲' : '▼') : ''}"></span>
                         </a>
                     </th>
                     <th>
-                        <a th:href="@{/fighters/(sort='name', direction=${sort=='name' && direction=='ASC' ? 'DESC' : 'ASC'},
+                        <a th:href="@{/fighters(sort='name', direction=${sort=='name' && direction=='ASC' ? 'DESC' : 'ASC'},
                          search=${search}, filterType=${filterType})}">
                             Name <span th:text="${sort=='name' ? (direction=='ASC' ? '▲' : '▼') : ''}"></span>
                         </a>
                     </th>
                     <th>
-                        <a th:href="@{/fighters/(sort='health', direction=${sort=='health' && direction=='ASC' ? 'DESC' : 'ASC'},
+                        <a th:href="@{/fighters(sort='health', direction=${sort=='health' && direction=='ASC' ? 'DESC' : 'ASC'},
                          search=${search}, filterType=${filterType})}">
                             Health <span th:text="${sort=='health' ? (direction=='ASC' ? '▲' : '▼') : ''}"></span>
                         </a>
                     </th>
                     <th>
-                        <a th:href="@{/fighters/(sort='damage', direction=${sort=='damage' && direction=='ASC' ? 'DESC' : 'ASC'},
+                        <a th:href="@{/fighters(sort='damage', direction=${sort=='damage' && direction=='ASC' ? 'DESC' : 'ASC'},
                          search=${search}, filterType=${filterType})}">
                             Damage <span th:text="${sort=='damage' ? (direction=='ASC' ? '▲' : '▼') : ''}"></span>
                         </a>
                     </th>
                     <th>
-                        <a th:href="@{/fighters/(sort='resistance', direction=${sort=='resistance' && direction=='ASC' ? 'DESC' : 
+                        <a th:href="@{/fighters(sort='resistance', direction=${sort=='resistance' && direction=='ASC' ? 'DESC' : 
                         'ASC'}, search=${search}, filterType=${filterType})}">
                             Resistance <span th:text="${sort=='resistance' ? (direction=='ASC' ? '▲' : '▼') : ''}"></span>
                         </a>
@@ -74,16 +74,16 @@
         </table>
 
         <div class="pagination-controls">
-            <a th:href="@{/fighters/(page=0, sort=${sort}, direction=${direction}, search=${search}, 
+            <a th:href="@{/fighters(page=0, sort=${sort}, direction=${direction}, search=${search}, 
             filterType=${filterType})}" th:if="${currentPage > 0}">First</a>
-            <a th:href="@{/fighters/(page=${currentPage-1}, sort=${sort}, direction=${direction}, 
+            <a th:href="@{/fighters(page=${currentPage-1}, sort=${sort}, direction=${direction}, 
             search=${search}, filterType=${filterType})}" th:if="${hasPrevious}">Previous</a>
 
             <span>Page <span th:text="${currentPage+1}"></span> of <span th:text="${totalPages}"></span></span>
 
-            <a th:href="@{/fighters/(page=${currentPage+1}, sort=${sort}, direction=${direction}, search=${search},
+            <a th:href="@{/fighters(page=${currentPage+1}, sort=${sort}, direction=${direction}, search=${search},
              filterType=${filterType})}" th:if="${hasNext}">Next</a>
-            <a th:href="@{/fighters/(page=${totalPages-1}, sort=${sort}, direction=${direction}, search=${search},
+            <a th:href="@{/fighters(page=${totalPages-1}, sort=${sort}, direction=${direction}, search=${search},
              filterType=${filterType})}" th:if="${currentPage < totalPages-1}">Last</a>
         </div>
 

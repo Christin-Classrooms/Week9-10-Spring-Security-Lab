@@ -24,7 +24,7 @@ public class PlayerRepo {
     public void save(Player player){
 
         String sql = "insert into players (name, email) values(?,?)";
-        jdbcTemplate.update(sql, player.getName(),player.getEmail());
+        jdbcTemplate.update(sql, player.getUsername(),player.getEmail());
 
 
     }
@@ -41,7 +41,7 @@ public class PlayerRepo {
 
                 Player player = new Player();
                 player.setId(rs.getInt("id"));
-                player.setName(rs.getString("name"));
+                player.setUsername(rs.getString("name"));
                 player.setEmail(rs.getString("email"));
 
                 return player;
@@ -66,7 +66,7 @@ public class PlayerRepo {
                 Player player = new Player();
 
                 player.setId(rs.getInt("id"));
-                player.setName(rs.getString("name"));
+                player.setUsername(rs.getString("name"));
                 player.setEmail(rs.getString("email"));
 
                 return player;
