@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Fighters List</title>
@@ -24,6 +24,7 @@
             </select>
             <button type="submit" class="btn btn-primary">Search</button>
             <a th:href="@{/fighters/list}" class="btn btn-secondary">Clear</a>
+            <a th:href="@{/create-fighter}" class="btn btn-success" sec:authorize="hasRole('ADMIN')">Add New Fighter</a>
         </form>
 
         <!-- Fighters Table -->

@@ -12,17 +12,24 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/players}">Players</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/create-player}">Create Player</a>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                   <a class="nav-link" th:href="@{/register}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/fighters}">Fighters</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/create-fighter}">Create Fighter</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search" method="get" th:action="@{/players}">
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3" sec:authorize="isAuthenticated()">
+                    Welcome, <span sec:authentication="name">User</span>!
+                </span>
+                <a th:href="@{/logout}" class="btn btn-outline-danger btn-sm" sec:authorize="isAuthenticated()">Logout</a>
+                <a th:href="@{/login}" class="btn btn-outline-success btn-sm" sec:authorize="isAnonymous()">Login</a>
+            </div>
+            <form class="ms-3 d-flex" role="search" method="get" th:action="@{/players}" sec:authorize="hasRole('ADMIN')">
                 <input name="id" class="form-control me-2" type="search" placeholder="Player ID" aria-label="Search"/>
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
