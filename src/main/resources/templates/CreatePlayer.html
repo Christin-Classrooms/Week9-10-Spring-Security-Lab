@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:insert="fragments/base :: assetsHead"></div>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="players-card">
-        <form th:action="@{/create-player}" th:object="${player}" method="POST" novalidate>
+        <form th:action="@{/register}" th:object="${player}" method="POST" novalidate>
 
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -44,7 +44,30 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">Create player</button>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    th:field="*{password}"
+                    th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : '' }"
+                    required
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    Password Error.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select" id="role" th:field="*{role}">
+                    <option value="PLAYER">PLAYER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Register player</button>
         </form>
     </div>
 </div>
