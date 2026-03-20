@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="fragments/base :: assetsHead"></div>
+<head>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
@@ -10,7 +13,7 @@
     </div>
 
     <div class="players-card">
-        <form th:action="@{/create-player}" th:object="${player}" method="POST" novalidate>
+        <form th:action="@{/register}" th:object="${player}" method="POST" novalidate>
 
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -44,7 +47,17 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">Create player</button>
+            <div class="mb-3">
+                <label for="username">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Register</button>
         </form>
     </div>
 </div>
