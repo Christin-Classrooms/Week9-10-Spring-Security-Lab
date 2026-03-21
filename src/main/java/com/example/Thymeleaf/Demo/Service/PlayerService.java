@@ -1,3 +1,6 @@
+// Name: Fahad Arif (N01729165)
+// Course: Web Application Development (CPAN-228)
+
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Player;
@@ -14,33 +17,30 @@ public class PlayerService {
     private PlayerRepository repo;
 
     public PlayerService(PlayerRepository repo) {
-
         this.repo = repo;
     }
 
     public List<Player> getAllPlayers() {
-        
         return repo.findAll();
     }
 
     public Page<Player> getAllPlayersPageable(Pageable pageable) {
-
         return repo.findAll(pageable);
-
     }
 
     public void addPlayer(Player player) {
-
         repo.save(player);
     }
 
-    public Page<Player> findPlayerByName(String name, Pageable page){
+    public void savePlayer(Player player) {
+        repo.save(player);
+    }
 
-        return repo.findByNameContainingIgnoreCase(name,page);
+    public Page<Player> findPlayerByName(String name, Pageable page) {
+        return repo.findByNameContainingIgnoreCase(name, page);
     }
 
     public Player getPlayerById(int id) {
         return repo.findById(id).orElse(null);
     }
-
 }

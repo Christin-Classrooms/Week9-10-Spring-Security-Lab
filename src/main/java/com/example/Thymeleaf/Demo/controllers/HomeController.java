@@ -1,3 +1,6 @@
+// Name: Fahad Arif (N01729165)
+// Course: Web Application Development (CPAN-228)
+
 package com.example.Thymeleaf.Demo.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String getHomePage(Model model){
-
+    public String getHomePage(Model model) {
         model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
         return "Home";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }
