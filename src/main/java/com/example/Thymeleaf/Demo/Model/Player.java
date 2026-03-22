@@ -26,7 +26,11 @@ public class Player {
     @Email(message = "invalid email")
     private String email;
 
+    // password field
+    @Column(nullable = false)
+    private String password;
 
-
-
+    // role field
+    @Column(nullable = false)
+    private String role;
 }

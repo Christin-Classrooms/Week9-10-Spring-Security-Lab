@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="fragments/base :: assetsHead"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <h2 class="mb-4 text-center">Login</h2>
+    
+    <form action="/login" method="post" class="d-flex flex-column w-25 gap-3 m-auto">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+        <div th:if="${param.error}" class="error">
+            Invalid username or password
+        </div>
+        <div th:if="${param.logout}" class="logout-message">
+            You have been logged out
+        </div>
+        
+        <div>
+            <label class="fw-bold">Username:</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        
+        <div>
+            <label class="fw-bold">Password:</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-25">Login</button>
+        
+        <div class="register-link">
+            <p>Don't have an account? <a href="/register">Register</a></p>
+        </div>
+    </form>
+</body>
+</html>

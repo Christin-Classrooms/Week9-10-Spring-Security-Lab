@@ -4,16 +4,16 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
-<div class="app-container">
+<div class="app-container d-flex flex-column w-50 gap-3 m-auto">
     <div class="app-header">
-        <h2 class="mb-4">Please Register Players</h2>
+        <h2 class="mb-4 text-center">Create An Account</h2>
     </div>
 
     <div class="players-card">
-        <form th:action="@{/create-player}" th:object="${player}" method="POST" novalidate>
+        <form th:action="@{/register}" th:object="${player}" method="POST" novalidate>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label fw-bold">Username</label>
                 <input
                     type="text"
                     class="form-control"
@@ -28,7 +28,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
+                <label for="email" class="form-label fw-bold">Email address</label>
                 <input
                     type="email"
                     class="form-control"
@@ -44,7 +44,17 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">Create player</button>
+            <div class="form-group">
+                <label for="password" class="fw-bold">Password:</label>
+                <input type="password" id="password" th:field="*{password}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Register</button>
+
+            <div class="login-link mt-4">
+                <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
         </form>
     </div>
 </div>
