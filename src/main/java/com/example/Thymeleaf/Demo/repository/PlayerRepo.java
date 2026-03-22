@@ -23,8 +23,8 @@ public class PlayerRepo {
 
     public void save(Player player){
 
-        String sql = "insert into players (name, email) values(?,?)";
-        jdbcTemplate.update(sql, player.getName(),player.getEmail());
+        String sql = "insert into players (name, email, password, role) values(?,?,?,?)";
+        jdbcTemplate.update(sql, player.getName(),player.getEmail(), player.getPassword(), player.getRole());
 
 
     }
@@ -43,6 +43,8 @@ public class PlayerRepo {
                 player.setId(rs.getInt("id"));
                 player.setName(rs.getString("name"));
                 player.setEmail(rs.getString("email"));
+                player.setPassword(rs.getString("password"));
+                player.setRole(rs.getString("role"));
 
                 return player;
             }
@@ -68,6 +70,8 @@ public class PlayerRepo {
                 player.setId(rs.getInt("id"));
                 player.setName(rs.getString("name"));
                 player.setEmail(rs.getString("email"));
+                player.setPassword(rs.getString("password"));
+                player.setRole(rs.getString("role"));
 
                 return player;
             }

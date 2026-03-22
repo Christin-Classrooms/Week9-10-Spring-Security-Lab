@@ -10,7 +10,7 @@
     </div>
 
     <div class="players-card">
-        <form th:action="@{/create-player}" th:object="${player}" method="POST" novalidate>
+        <form th:action="@{/register}" th:object="${player}" method="POST" novalidate>
 
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -41,6 +41,21 @@
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
                     Email Error.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    th:field="*{password}"
+                    th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : '' }"
+                    required
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    Password Error.
                 </div>
             </div>
 
