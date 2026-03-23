@@ -42,5 +42,12 @@ public class PlayerService {
     public Player getPlayerById(int id) {
         return repo.findById(id).orElse(null);
     }
-
+  
+    public Player findByUsername(String username) {
+        return repo.findByUsername(username);
+    }
+    
+    public Player savePlayer(Player player) {
+        return repo.save(player);
+    }
 }
