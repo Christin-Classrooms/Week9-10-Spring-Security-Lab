@@ -21,7 +21,7 @@ public class FighterController {
         this.fighterService = fighterService;
     }
 
-    @GetMapping("/fighters/")
+    @GetMapping("/fighters")
 public String getFighters(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size,

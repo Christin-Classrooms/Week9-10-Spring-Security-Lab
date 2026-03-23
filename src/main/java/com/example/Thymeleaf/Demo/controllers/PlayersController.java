@@ -57,14 +57,10 @@ public class PlayersController {
         model.addAttribute("search", search);
         model.addAttribute("sort", sortBy);
         model.addAttribute("direction", direction);
-        //Switching the Pagination
         model.addAttribute("hasPrevious", playerPage.hasPrevious());
         model.addAttribute("hasNext", playerPage.hasNext());
         model.addAttribute("startIndex", page * size +1);
         model.addAttribute("endIndex", Math.min((page+1)*size,(int)playerPage.getTotalElements()));
-
-
-
 
         return "Players";
     }
