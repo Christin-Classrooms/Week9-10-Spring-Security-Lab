@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #ff8c8c;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ffe0e0;
+            border-radius: 25px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: #ff6b6b;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff9a9e, #ff6b6b);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+        .error {
+            color: #ff4444;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Account </h2>
+        
+        <div th:if="${error}" class="error" th:text="${error}">
+            Error message
+        </div>
+        
+        <form method="post" action="/register">
+            <div>
+                <label>Username:</label>
+                <input type="text" name="username" required/>
+            </div>
+            <div>
+                <label>Name:</label>
+                <input type="text" name="name" required/>
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" name="email" required/>
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" required/>
+            </div>
+            <div>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+        
+        <div class="login-link">
+            Already have an account? <a href="/login">Login here</a>
+        </div>
+    </div>
+</body>
+</html>
