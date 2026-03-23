@@ -17,23 +17,31 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/", "/home").permitAll()
-            .requestMatchers("/styles.css", "/css/**", "/js/**", "/images/**").permitAll()
-            .requestMatchers("/players/**").hasAnyRole("USER","ADMIN")
-            .requestMatchers("/fighters/**").hasRole("ADMIN")
-            .anyRequest().authenticated()
-        )
-        .formLogin(Customizer.withDefaults())
-        .logout(logout -> logout
-            .logoutSuccessUrl("/")
-            .permitAll()
-        );
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/home").permitAll()
+                .requestMatchers("/styles.css", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/players/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/fighters/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .formLogin(Customizer.withDefaults())
+            .logout(logout -> logout
+                .logoutSuccessUrl("/")
+                .permitAll()
+            )
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/h2-console/**")
+            )
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.disable())
+            );
 
-    return http.build();
-}
+        return http.build();
+    }
+
     @Bean
     public UserDetailsService users(PasswordEncoder passwordEncoder) {
         UserDetails user = User.builder()
