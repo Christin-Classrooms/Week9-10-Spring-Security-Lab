@@ -22,9 +22,18 @@ public class Player {
     @Size(min=2, max=240, message="name size must be > 2 and <240")
     @NotBlank(message="The name is required")
     private String name;
-    @NotBlank(message = "The email is not required")
+    @NotBlank(message = "The email is required")
     @Email(message = "invalid email")
     private String email;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String role;
 
 
 
