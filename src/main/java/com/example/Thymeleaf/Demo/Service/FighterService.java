@@ -1,11 +1,11 @@
 package com.example.Thymeleaf.Demo.Service;
 
-import com.example.Thymeleaf.Demo.Model.Fighter;
-import com.example.Thymeleaf.Demo.repository.FighterRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.repository.FighterRepository;
 
 @Service
 public class FighterService {
@@ -40,7 +40,6 @@ public class FighterService {
     }
 
     public void addFighter(Fighter fighter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFighter'");
+        fighterRepository.save(fighter);
     }
 }
