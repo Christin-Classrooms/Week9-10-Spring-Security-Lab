@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Player {
+public class Player{
 
     @Id
     @Column(name = "id")
@@ -25,8 +25,9 @@ public class Player {
     @NotBlank(message = "The email is not required")
     @Email(message = "invalid email")
     private String email;
-
-
+    @NotBlank(message = "The password is required")
+    private String password;
+    private String role;
 
 
 }

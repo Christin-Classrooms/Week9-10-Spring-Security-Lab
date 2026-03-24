@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
 
@@ -19,4 +17,7 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
     @Query("Select p from Player p where p.email =:email")
     Player findByEmail(@Param("email") String email);
 
+    Player findByPassword(String password);
+
+    Player findByName(String name);
 }
