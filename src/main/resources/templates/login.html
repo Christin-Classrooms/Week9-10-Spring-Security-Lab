@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+  </head>
+  <body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-5 rounded">
+      <h2 class="text-center">Login</h2>
+
+      <form method="post" th:action="@{/login}">
+        <div class="form-group mt-3 mb-3">
+          <label for="username" class="mb-2">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control w-90"
+            required
+          />
+        </div>
+
+        <div class="form-group mt-3 mb-3">
+          <label for="password" class="mb-2">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control w-90"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="mt-3 mb-3 rounded btn btn-primary text-white py-2 w-100"
+        >
+          Login
+        </button>
+      </form>
+
+      <div>
+        <p class="text-muted">Don't have an account?</p>
+        <a th:href="@{/register}">Register here </a>
+      </div>
+
+      <div th:if="${param.error}">
+        <p class="alert alert-danger">
+          Invalid username or password. Please try again.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
