@@ -2,13 +2,18 @@ package com.example.Thymeleaf.Demo.controllers;
 
 import com.example.Thymeleaf.Demo.Model.Player;
 import com.example.Thymeleaf.Demo.Service.PlayerService;
+import com.example.Thymeleaf.Demo.repository.PlayerRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -19,9 +24,30 @@ public class PlayersController {
 
     private final PlayerService playerService;
 
+    @Autowired
+    private PlayerRepository playerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public PlayersController(PlayerService playerService) {
         this.playerService = playerService;
     }
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("player", new Player());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerPlayer(Player player) {
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
+        player.setRole("PLAYER");
+        playerRepository.save(player);
+        return "redirect:/login";
+    }
+
 
     @GetMapping("/players")
     public String getPlayers(
