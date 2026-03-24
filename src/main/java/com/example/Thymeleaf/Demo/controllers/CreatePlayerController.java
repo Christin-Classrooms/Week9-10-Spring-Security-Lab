@@ -9,35 +9,42 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class CreatePlayerController {
     private final PlayerService playerService;
+    private final PasswordEncoder passwordEncoder;
 
-    public CreatePlayerController(PlayerService playerService) {
-        this.playerService = playerService;
+    public CreatePlayerController(PlayerService playerService, PasswordEncoder passwordEncoder) {
+    this.playerService = playerService;
+    this.passwordEncoder = passwordEncoder;
+}
+
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("player", new Player());
+        return "register";
+}
+
+
+
+    @PostMapping("/register")
+public String registerPlayer(@Valid @ModelAttribute("player") Player player,
+                             BindingResult result) {
+
+    if (result.hasErrors()) {
+        return "register";
     }
 
-    @GetMapping("/create-player")
-    public String showCreatePlayerForm(Model model ){
+    player.setPassword(passwordEncoder.encode(player.getPassword()));
+    player.setRole("PLAYER");
 
-        model.addAttribute("player",   new Player());
-        return "CreatePlayer";
+    playerService.addPlayer(player);
 
-    }
-
-
-    @PostMapping("/create-player")
-    public String createPlayer(@Valid Player player, BindingResult result){
-
-        if(result.hasErrors()){
-            return "CreatePlayer";
-        }
-
-        playerService.addPlayer(player);
-        return "redirect:/players";
-    }
-
+    return "redirect:/login";
+}
 
 
 
