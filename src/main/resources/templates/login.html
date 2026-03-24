@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="app-container text-center">
+    <div class="players-card">
+        <h2>Login</h2>
+        <form th:action="@{/login}" method="post">
+            <div>
+                <label>Email:</label>
+                <input type="text" name="username" required />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" required />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+
+        <!-- Error / Logout Messages -->
+        <div th:if="${param.error}">
+            <p style="color:red;">Invalid username or password</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p style="color:green;">You have been logged out</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

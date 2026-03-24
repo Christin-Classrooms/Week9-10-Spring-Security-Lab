@@ -103,6 +103,26 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Spring Security -->
+	<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+
+		<!-- Thymeleaf extras for Spring Security -->
+	<dependency>
+    	<groupId>org.thymeleaf.extras</groupId>
+    	<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+	</dependency>
+
+		<!-- H2 database -->
+	<dependency>
+   	 	<groupId>com.h2database</groupId>
+    	<artifactId>h2</artifactId>
+	</dependency>
+	
+	
 	</dependencies>
 
 	<build>
