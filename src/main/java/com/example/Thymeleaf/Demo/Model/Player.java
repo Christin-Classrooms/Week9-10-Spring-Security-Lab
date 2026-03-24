@@ -8,11 +8,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+
 @Entity
 @Table(name = "players")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
+
 public class Player {
 
     @Id
@@ -25,6 +29,8 @@ public class Player {
     @NotBlank(message = "The email is not required")
     @Email(message = "invalid email")
     private String email;
+    private String password;
+    private String role;
 
 
 
