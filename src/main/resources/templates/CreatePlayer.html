@@ -1,54 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="fragments/base :: assetsHead"></div>
-<body>
-<nav th:replace="fragments/navbar :: navbar"></nav>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
 
-<div class="app-container">
-    <div class="app-header">
-        <h2 class="mb-4">Please Register Players</h2>
-    </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body class="bg-light">
 
-    <div class="players-card">
-        <form th:action="@{/create-player}" th:object="${player}" method="POST" novalidate>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
 
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    th:field="*{name}"
-                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : '' }"
-                    required
-                >
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-                    Name Error.
+            <div class="card shadow">
+                <div class="card-body">
+
+                    <h3 class="text-center mb-4">Register</h3>
+
+                    <form th:action="@{/register}" th:object="${player}" method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control">
+                            <small class="text-danger" th:errors="*{name}"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" th:field="*{email}" class="form-control">
+                            <small class="text-danger" th:errors="*{email}"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" th:field="*{password}" class="form-control">
+                            <small class="text-danger" th:errors="*{password}"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100">Register</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a th:href="@{/login}">Already have an account?</a>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    th:field="*{email}"
-                    aria-describedby="emailHelp"
-                    th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : '' }"
-                    required
-                >
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-                    Email Error.
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-lg">Create player</button>
-        </form>
+        </div>
     </div>
 </div>
 
-<div th:insert="fragments/base :: assetsScripts"></div>
 </body>
 </html>
