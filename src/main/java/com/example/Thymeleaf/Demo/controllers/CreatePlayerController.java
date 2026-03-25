@@ -1,48 +1,41 @@
 package com.example.Thymeleaf.Demo.controllers;
 
-
 import com.example.Thymeleaf.Demo.Model.Player;
-import com.example.Thymeleaf.Demo.Service.PlayerService;
-import jakarta.validation.Valid;
+import com.example.Thymeleaf.Demo.repository.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/register")
 public class CreatePlayerController {
-    private final PlayerService playerService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    PlayerRepository playerRepo;
 
-    public CreatePlayerController(PlayerService playerService) {
-        this.playerService = playerService;
+    @GetMapping
+    public String getRegistrationPage(Model model) {
+        model.addAttribute("player", new Player());
+        return "register";
     }
 
-    @GetMapping("/create-player")
-    public String showCreatePlayerForm(Model model ){
+    @PostMapping
+    public String registerPlayer(@ModelAttribute("player") Player player) {
 
-        model.addAttribute("player",   new Player());
-        return "CreatePlayer";
-
-    }
-
-
-    @PostMapping("/create-player")
-    public String createPlayer(@Valid Player player, BindingResult result){
-
-        if(result.hasErrors()){
-            return "CreatePlayer";
+        if (playerRepo.findByName(player.getName()).isPresent()) {
+            return "redirect:/register?error";
         }
 
-        playerService.addPlayer(player);
-        return "redirect:/players";
+        player.setName(player.getName());
+        player.setEmail(player.getEmail());
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
+        player.setRole("PLAYER");
+
+        playerRepo.save(player);
+
+        return "redirect:/login";
     }
-
-
-
-
-
-
-
-
 }
