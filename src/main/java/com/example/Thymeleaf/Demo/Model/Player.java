@@ -25,8 +25,8 @@ public class Player {
     @NotBlank(message = "The email is not required")
     @Email(message = "invalid email")
     private String email;
-
-
-
+    @Size(min = 6, message = "password size must be at least 6")
+    private String password;
+    private String role;
 
 }
