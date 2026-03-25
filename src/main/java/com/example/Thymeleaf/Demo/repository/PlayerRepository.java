@@ -8,15 +8,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
 
     Page<Player> findByNameContainingIgnoreCase(String name, Pageable page);
 
-    //JPQL
     @Query("Select p from Player p where p.email =:email")
     Player findByEmail(@Param("email") String email);
+
+    @Query("Select p from Player p where p.name = :username")
+    Optional<Player> findByUsername(@Param("username") String username);
 
 }

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="fragments/base :: assetsHead"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Register Player</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
 <div class="app-container">
     <div class="app-header">
-        <h2 class="mb-4">Please Register Players</h2>
+        <h2 class="mb-4">Register a Player</h2>
     </div>
 
     <div class="players-card">
-        <form th:action="@{/create-player}" th:object="${player}" method="POST" novalidate>
+        <form th:action="@{/register}" th:object="${player}" method="POST" novalidate>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">Username</label>
                 <input
                     type="text"
                     class="form-control"
@@ -44,7 +48,22 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">Create player</button>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    th:field="*{password}"
+                    th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : '' }"
+                    required
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    Password Error.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Register</button>
         </form>
     </div>
 </div>
