@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Login Test</h1>
+        </div>
+
+
+        <div th:if="${param.error}">
+            Invalid username or password. Please try again.
+        </div>
+
+        <div class="players-card">
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Username:</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="username"
+                            required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+            </form>
+
+            <div class="links">
+                Don't have an account? <a href="/register">Create one here.</a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
