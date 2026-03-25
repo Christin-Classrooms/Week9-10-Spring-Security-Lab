@@ -1,6 +1,11 @@
 package com.example.Thymeleaf.Demo.Model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,7 +31,9 @@ public class Player {
     @Email(message = "invalid email")
     private String email;
 
-
-
-
+    // Part 2
+    // @Column(nullable = false)
+    private String password;
+    // @Column(nullable = false)
+    private String role;
 }
