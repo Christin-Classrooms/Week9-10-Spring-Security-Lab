@@ -10,6 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.example.Thymeleaf.Demo.repository.PlayerRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +25,12 @@ import java.util.List;
 public class PlayersController {
 
     private final PlayerService playerService;
+
+    @Autowired
+    private PlayerRepository playerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public PlayersController(PlayerService playerService) {
         this.playerService = playerService;
@@ -63,10 +76,32 @@ public class PlayersController {
         model.addAttribute("startIndex", page * size +1);
         model.addAttribute("endIndex", Math.min((page+1)*size,(int)playerPage.getTotalElements()));
 
-
-
-
         return "Players";
+    }
+
+        @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    // GET /register — show the registration form
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("player", new Player());
+        return "register";
+    }
+
+    // POST /register — encode password, assign PLAYER role, save, redirect to login
+    @PostMapping("/register")
+    public String registerPlayer(@Valid @ModelAttribute("player") Player player,
+                                 BindingResult result) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
+        player.setRole("PLAYER");
+        playerRepository.save(player);
+        return "redirect:/login";
     }
 
 }
