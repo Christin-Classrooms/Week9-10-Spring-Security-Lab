@@ -1,48 +1,52 @@
 package com.example.Thymeleaf.Demo.controllers;
 
-
 import com.example.Thymeleaf.Demo.Model.Player;
-import com.example.Thymeleaf.Demo.Service.PlayerService;
-import jakarta.validation.Valid;
+import com.example.Thymeleaf.Demo.repository.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class CreatePlayerController {
-    private final PlayerService playerService;
 
-    public CreatePlayerController(PlayerService playerService) {
-        this.playerService = playerService;
+    private final PlayerRepository playerRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public CreatePlayerController(PlayerRepository playerRepository, PasswordEncoder passwordEncoder) {
+        this.playerRepository = playerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/create-player")
-    public String showCreatePlayerForm(Model model ){
-
-        model.addAttribute("player",   new Player());
+    @GetMapping("/register")
+    public String showRegisterPage(Model model) {
+        model.addAttribute("player", new Player());
         return "CreatePlayer";
-
     }
 
+    @PostMapping("/register")
+    public String processRegistration(@Valid @ModelAttribute("player") Player player,
+                                      BindingResult result,
+                                      Model model) {
 
-    @PostMapping("/create-player")
-    public String createPlayer(@Valid Player player, BindingResult result){
+        if (playerRepository.findByEmail(player.getEmail()).isPresent()) {
+            result.rejectValue("email", "error.player", "Email is already registered");
+        }
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "CreatePlayer";
         }
 
-        playerService.addPlayer(player);
-        return "redirect:/players";
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
+        player.setRole("PLAYER");
+
+        playerRepository.save(player);
+
+        return "redirect:/login";
     }
-
-
-
-
-
-
-
-
 }
