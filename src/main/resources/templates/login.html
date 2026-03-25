@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+    <div class="app-container">
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="card" style="width: 400px;">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Login</h2>
+                    
+                    <!-- Display error message if login failed -->
+                    <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Invalid username or password
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                    <!-- Display logout success message -->
+                    <div th:if="${param.logout}" class="alert alert-success alert-dismissible fade show" role="alert">
+                        You have been logged out successfully
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                    <form method="POST" th:action="@{/login}">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                    
+                    <hr>
+                    <p class="text-center text-muted">Don't have an account? <a th:href="@{/register}">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="fragments/base :: assetsScripts"></div>
+</body>
+</html>
