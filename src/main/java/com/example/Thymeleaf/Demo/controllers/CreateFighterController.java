@@ -1,7 +1,8 @@
 package com.example.Thymeleaf.Demo.controllers;
 
-import com.example.Thymeleaf.Demo.Model.Fighter;
-import com.example.Thymeleaf.Demo.Service.FighterService;
+import com.example.Thymeleaf.Demo.model.Fighter;
+import com.example.Thymeleaf.Demo.service.FighterService;
+
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

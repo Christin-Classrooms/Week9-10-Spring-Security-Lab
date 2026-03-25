@@ -1,6 +1,6 @@
-package com.example.Thymeleaf.Demo.Service;
+package com.example.Thymeleaf.Demo.service;
 
-import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.model.Fighter;
 import com.example.Thymeleaf.Demo.repository.FighterRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
