@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-    <div th:insert="fragments/base :: assetsHead"></div>
+    <title>Home</title>
 </head>
 <body>
 
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-    <div class="app-container text-center">
-        <div class="players-card">
-            <h2 th:text="${message}">Welcome</h2>
-            <p class="text-muted">Use the navigation above to browse the site.</p>
-        </div>
-    </div>
+<h1>Welcome</h1>
 
-    <div th:insert="fragments/base :: assetsScripts"></div>
+<a href="/">Home</a>
+<a href="/players">Players</a>
+<a href="/fighters">Fighters</a>
+
+<div sec:authorize="hasRole('ADMIN')">
+    <a href="/create-fighter">Create Fighter</a>
+    <a href="/h2-console">H2 Console</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <a href="/logout">Logout</a>
+</div>
+
+<div sec:authorize="!isAuthenticated()">
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+</div>
+
 </body>
-</html>
+</html>>
