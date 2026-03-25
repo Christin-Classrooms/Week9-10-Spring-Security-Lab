@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <div th:insert="fragments/base :: assetsHead"></div>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
 </head>
 <body>
 
-    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
     <div class="app-container text-center">
         <div class="players-card">
             <h2 th:text="${message}">Welcome</h2>
@@ -15,6 +15,6 @@
         </div>
     </div>
 
-    <div th:insert="fragments/base :: assetsScripts"></div>
+    <div th:insert="~{fragments/base :: assetsScripts}"></div>
 </body>
 </html>

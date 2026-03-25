@@ -1,6 +1,6 @@
-package com.example.Thymeleaf.Demo.Service;
+package com.example.Thymeleaf.Demo.service;
 
-import com.example.Thymeleaf.Demo.Model.Player;
+import com.example.Thymeleaf.Demo.model.Player;
 import com.example.Thymeleaf.Demo.repository.PlayerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,5 +42,11 @@ public class PlayerService {
     public Player getPlayerById(int id) {
         return repo.findById(id).orElse(null);
     }
+
+    public Player getPlayerByEmail(String email) {
+    return repo.findByEmail(email);
+}
+
+
 
 }

@@ -1,10 +1,11 @@
 package com.example.Thymeleaf.Demo.repository;
 
 
-import com.example.Thymeleaf.Demo.Model.Player;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.example.Thymeleaf.Demo.model.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

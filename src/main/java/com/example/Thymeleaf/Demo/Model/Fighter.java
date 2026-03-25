@@ -1,4 +1,4 @@
-package com.example.Thymeleaf.Demo.Model;
+package com.example.Thymeleaf.Demo.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,7 +1,8 @@
 package com.example.Thymeleaf.Demo.controllers;
 
-import com.example.Thymeleaf.Demo.Model.Fighter;
-import com.example.Thymeleaf.Demo.Service.FighterService;
+import com.example.Thymeleaf.Demo.model.Fighter;
+import com.example.Thymeleaf.Demo.service.FighterService;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
