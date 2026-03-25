@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="app-container">
+    <div class="app-header text-center" style="margin-bottom: 30px;">
+        <h2>Login</h2>
+    </div>
+
+    <div class="players-card" style="max-width: 500px; margin: 0 auto;">
+        <form method="post" th:action="@{/login}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="username" name="username" required>
+                <div class="form-text">Enter your registered email</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            
+            <div th:if="${param.error}" class="alert alert-danger">
+                Invalid email or password
+            </div>
+            
+            <div th:if="${param.logout}" class="alert alert-success">
+                You have been logged out successfully
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/base :: assetsScripts"></div>
+</body>
+</html>

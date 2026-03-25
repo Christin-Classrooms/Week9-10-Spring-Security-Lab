@@ -1,3 +1,4 @@
+/* was having issues so i renamed the sql file*/
 insert into players (name, email) values ('James Anderson', 'james.anderson@gmail.com');
 insert into players (name, email) values ('Michael Chen', 'michael.chen@gmail.com');
 insert into players (name, email) values ('David Johnson', 'david.johnson@gmail.com');
