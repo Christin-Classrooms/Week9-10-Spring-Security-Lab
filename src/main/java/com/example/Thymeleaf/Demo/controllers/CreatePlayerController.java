@@ -18,24 +18,24 @@ public class CreatePlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/create-player")
+    @GetMapping("/register")
     public String showCreatePlayerForm(Model model ){
 
         model.addAttribute("player",   new Player());
-        return "CreatePlayer";
+        return "register";
 
     }
 
 
-    @PostMapping("/create-player")
+    @PostMapping("/register")
     public String createPlayer(@Valid Player player, BindingResult result){
 
         if(result.hasErrors()){
-            return "CreatePlayer";
+            return "register";
         }
 
         playerService.addPlayer(player);
-        return "redirect:/players";
+        return "redirect:/login";
     }
 
 
