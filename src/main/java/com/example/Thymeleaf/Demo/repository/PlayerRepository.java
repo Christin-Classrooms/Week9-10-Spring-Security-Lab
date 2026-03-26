@@ -19,4 +19,5 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
     @Query("Select p from Player p where p.email =:email")
     Player findByEmail(@Param("email") String email);
 
+    Player findByUsername(String username);
 }

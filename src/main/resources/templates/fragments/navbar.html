@@ -1,4 +1,4 @@
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">TekkenReborn</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,18 +13,25 @@
                     <a class="nav-link" th:href="@{/players}">Players</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/create-player}">Create Player</a>
+                    <a class="nav-link" th:href="@{/register}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/fighters}">Fighters</a>
                 </li>
-                <li class="nav-item">
+                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/create-fighter}">Create Fighter</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/h2-console}">H2 Console</a>
                 </li>
             </ul>
             <form class="d-flex" role="search" method="get" th:action="@{/players}">
                 <input name="id" class="form-control me-2" type="search" placeholder="Player ID" aria-label="Search"/>
                 <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            <form method="post" th:action="@{/logout}" class="ms-3" sec:authorize="isAuthenticated()">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <button type="submit" class="btn btn-outline-light">Logout</button>
             </form>
         </div>
     </div>
