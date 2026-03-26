@@ -12,11 +12,11 @@ import java.util.List;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
-
-    Page<Player> findByNameContainingIgnoreCase(String name, Pageable page);
+       Player findByName(String name);
+       Page<Player> findByNameContainingIgnoreCase(String name, Pageable page);
 
     //JPQL
-    @Query("Select p from Player p where p.email =:email")
-    Player findByEmail(@Param("email") String email);
+    //@Query("Select p from Player p where p.email =:email")
+    //Player findByEmail(@Param("email") String email);
 
 }
