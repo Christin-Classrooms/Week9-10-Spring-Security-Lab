@@ -9,8 +9,12 @@ public class HomeController {
 
     @GetMapping("/")
     public String getHomePage(Model model){
-
         model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
         return "Home";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 @Entity
 @Table(name = "players")
@@ -19,14 +20,17 @@ public class Player {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Size(min=2, max=240, message="name size must be > 2 and <240")
     @NotBlank(message="The name is required")
     private String name;
-    @NotBlank(message = "The email is not required")
+
+    @NotBlank(message = "The email is required")
     @Email(message = "invalid email")
     private String email;
 
+    private String password;
 
-
+    private String role;
 
 }
