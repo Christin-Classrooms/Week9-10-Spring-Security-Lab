@@ -15,8 +15,9 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
 
     Page<Player> findByNameContainingIgnoreCase(String name, Pageable page);
 
+    Player findByName(String name);
+
     //JPQL
     @Query("Select p from Player p where p.email =:email")
     Player findByEmail(@Param("email") String email);
-
 }
