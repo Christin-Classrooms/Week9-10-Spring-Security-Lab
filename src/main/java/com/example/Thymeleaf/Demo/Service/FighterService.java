@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class FighterService {
 
@@ -33,14 +32,13 @@ public class FighterService {
             case "strongest":
                 return fighterRepository.findStrongestFighters(pageable);
             case "balanced":
-                return fighterRepository.findBalancedFighters(1200, 150, pageable); 
+                return fighterRepository.findBalancedFighters(1200, 150, pageable);
             default:
                 return fighterRepository.findAll(pageable);
         }
     }
 
     public void addFighter(Fighter fighter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFighter'");
+        fighterRepository.save(fighter);
     }
 }
