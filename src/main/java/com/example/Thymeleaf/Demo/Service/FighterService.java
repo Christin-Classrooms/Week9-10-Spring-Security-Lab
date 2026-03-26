@@ -39,8 +39,11 @@ public class FighterService {
         }
     }
 
-    public void addFighter(Fighter fighter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFighter'");
-    }
+    
+   
+        public void addFighter(Fighter fighter) {
+        fighterRepository.save(fighter);
+}
+
+
 }
