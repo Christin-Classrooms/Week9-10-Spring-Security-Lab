@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <div th:insert="fragments/base :: assetsHead"></div>
+  <body>
+
+    <div th:if="${param.error}" class="alert alert-danger">
+        Invalid email or password.
+    </div>
+
+        <div th:if="${param.logout}" class="alert alert-success">
+  You have been logged out.
+        </div>
+
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <div class="app-container">
+      <div class="app-header">
+        <h2 class="mb-4">Login</h2>
+      </div>
+
+      <div class="players-card">
+        <form th:action="@{/login}" method="post">
+          <div class="mb-3">
+            <label for="username" class="form-label">Email</label>
+            <input type="text" class="form-control" id="username" name="username" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <div th:insert="fragments/base :: assetsScripts"></div>
+  </body>
+</html>

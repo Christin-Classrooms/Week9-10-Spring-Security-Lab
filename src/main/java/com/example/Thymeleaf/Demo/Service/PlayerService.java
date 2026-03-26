@@ -1,5 +1,6 @@
 package com.example.Thymeleaf.Demo.Service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.Thymeleaf.Demo.Model.Player;
 import com.example.Thymeleaf.Demo.repository.PlayerRepository;
 import org.springframework.data.domain.Page;
@@ -12,9 +13,10 @@ import java.util.List;
 public class PlayerService {
 
     private PlayerRepository repo;
+    private PasswordEncoder passwordEncoder;
 
-    public PlayerService(PlayerRepository repo) {
-
+    public PlayerService(PlayerRepository repo, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.repo = repo;
     }
 
@@ -30,7 +32,7 @@ public class PlayerService {
     }
 
     public void addPlayer(Player player) {
-
+         player.setPassword(passwordEncoder.encode(player.getPassword()));
         repo.save(player);
     }
 
