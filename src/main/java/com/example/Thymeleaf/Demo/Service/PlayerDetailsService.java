@@ -18,13 +18,13 @@ public class PlayerDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Player player = playerRepository.findByEmail(username);
+        Player player = playerRepository.findByName(username);
 
         if (player == null) {
             throw new UsernameNotFoundException("Player not found");
         }
 
-        return User.withUsername(player.getEmail())
+        return User.withUsername(player.getName())
                 .password(player.getPassword())
                 .roles(player.getRole())
                 .build();
