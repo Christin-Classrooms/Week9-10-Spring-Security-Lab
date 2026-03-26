@@ -2,7 +2,6 @@ package com.example.Thymeleaf.Demo.util;
 
 import com.example.Thymeleaf.Demo.Model.Player;
 import com.example.Thymeleaf.Demo.repository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,22 +10,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-    @Autowired
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepo;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public DataLoader(PlayerRepository playerRepo, PasswordEncoder passwordEncoder) {
+        this.playerRepo = playerRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void run(ApplicationArguments args) {
-        if (playerRepository.findByUsername("admin").isEmpty()) {
+        // Only add default admin if not exists
+        if (playerRepo.findByUsername("administrator").isEmpty()) {
             Player admin = new Player();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setUsername("administrator");
+            admin.setPassword(passwordEncoder.encode("Admin!234"));
             admin.setRole("ADMIN");
-            admin.setName("Administrator"); // REQUIRED
-            admin.setEmail("admin@example.com"); // REQUIRED
-            playerRepository.save(admin);
+            playerRepo.save(admin);
+
+            System.out.println("Default admin created: administrator / Admin!234");
         }
     }
 }

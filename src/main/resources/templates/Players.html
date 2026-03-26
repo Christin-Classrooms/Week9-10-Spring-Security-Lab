@@ -6,167 +6,35 @@
     <div th:insert="fragments/base :: assetsHead"></div>
 </head>
 <body>
-<nav th:replace="fragments/navbar :: navbar"></nav>
 
-<div class="app-container">
-    <div class="app-header text-center" style="margin-bottom: 30px;">
-        <h2>Players</h2>
-        <p class="text-muted">Total: <span th:text="${total}">0</span> players</p>
-    </div>
+    <!-- Navigation bar -->
+    <nav th:replace="fragments/navbar :: main-nav"></nav>
 
-    <div class="players-card" style="background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
-        <!-- Search and Filters Section -->
-        <div style="padding: 20px; border-bottom: 1px solid #e0e0e0;">
-            <form method="get" th:action="@{/players}" style="display: flex; gap: 15px; align-items: flex-end;">
-                <!-- Search Input -->
-                <div style="flex: 1;">
-                    <label for="search-input" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">Search by Name</label>
-                    <input type="text" id="search-input" name="search" th:value="${search}" placeholder="Enter player name..."
-                           style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
-                </div>
+    <div class="container-center">
+        <h2>Players List</h2>
 
-                <!-- Sort By Dropdown -->
-                <div style="min-width: 150px;">
-                    <label for="sort-select" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">Sort By</label>
-                    <select id="sort-select" name="sort" onchange="this.form.submit();" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="name" th:selected="${sort == 'name'}">Name</option>
-                        <option value="id" th:selected="${sort == 'id'}">ID</option>
-                        <option value="email" th:selected="${sort == 'email'}">Email</option>
-                    </select>
-                </div>
-
-                <!-- Sort Direction Dropdown -->
-                <div style="min-width: 120px;">
-                    <label for="direction-select" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">Direction</label>
-                    <select id="direction-select" name="direction" onchange="this.form.submit();" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="ASC" th:selected="${direction == 'ASC'}">Ascending</option>
-                        <option value="DESC" th:selected="${direction == 'DESC'}">Descending</option>
-                    </select>
-                </div>
-
-                <!-- Page Size Dropdown -->
-                <div style="min-width: 130px;">
-                    <label for="size-select" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">Per Page</label>
-                    <select id="size-select" name="size" onchange="this.form.submit();" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="10" th:selected="${size == 10}">10</option>
-                        <option value="25" th:selected="${size == 25}">25</option>
-                        <option value="50" th:selected="${size == 50}">50</option>
-                    </select>
-                </div>
-
-                <!-- Search Button -->
-                <button type="submit" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">
-                    Search
-                </button>
-
-                <!-- Reset Button -->
-                <a th:href="@{/players}" style="padding: 8px 16px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block;">
-                    Reset
-                </a>
-            </form>
-        </div>
-
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table align-middle" style="margin-bottom: 0;">
-                <thead style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+        <table>
+            <thead>
                 <tr>
-                    <th scope="col" style="padding: 15px; text-align: left; font-weight: 600; color: #333; width: 40%;">
-                        <a th:href="@{/players(search=${search}, page=${currentPage}, size=${size}, sort='name', direction=${direction=='ASC'?'DESC':'ASC'})}"
-                           style="color: #333; text-decoration: none; cursor: pointer;">
-                            Name
-                            <span style="font-size: 12px; color: #999;" th:if="${sort == 'name'}">
-                                <span th:if="${direction == 'ASC'}">▲</span>
-                                <span th:if="${direction == 'DESC'}">▼</span>
-                            </span>
-                        </a>
-                    </th>
-                    <th scope="col" style="padding: 15px; text-align: left; font-weight: 600; color: #333; width: 40%;">
-                        <a th:href="@{/players(search=${search}, page=${currentPage}, size=${size}, sort='email', direction=${direction=='ASC'?'DESC':'ASC'})}"
-                           style="color: #333; text-decoration: none; cursor: pointer;">
-                            Email
-                            <span style="font-size: 12px; color: #999;" th:if="${sort == 'email'}">
-                                <span th:if="${direction == 'ASC'}">▲</span>
-                                <span th:if="${direction == 'DESC'}">▼</span>
-                            </span>
-                        </a>
-                    </th>
-                    <th scope="col" style="padding: 15px; text-align: left; font-weight: 600; color: #333; width: 20%;">
-                        <a th:href="@{/players(search=${search}, page=${currentPage}, size=${size}, sort='id', direction=${direction=='ASC'?'DESC':'ASC'})}"
-                           style="color: #333; text-decoration: none; cursor: pointer;">
-                            ID
-                            <span style="font-size: 12px; color: #999;" th:if="${sort == 'id'}">
-                                <span th:if="${direction == 'ASC'}">▲</span>
-                                <span th:if="${direction == 'DESC'}">▼</span>
-                            </span>
-                        </a>
-                    </th>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="player : ${players}" style="border-bottom: 1px solid #eee; transition: background-color 0.2s;">
-                    <td style="padding: 15px; color: #0066cc; cursor: pointer;" th:text="${player.name}">John Doe</td>
-                    <td style="padding: 15px; color: #666;" th:text="${player.email}">john@example.com</td>
-                    <td style="padding: 15px; color: #999; font-size: 14px;" th:text="${player.id}">1</td>
+            </thead>
+            <tbody>
+                <tr th:each="player : ${players}">
+                    <td th:text="${player.id}">1</td>
+                    <td th:text="${player.username}">username</td>
+                    <td th:text="${player.name}">Name</td>
+                    <td th:text="${player.email}">Email</td>
+                    <td th:text="${player.role}">Role</td>
                 </tr>
-                <tr th:if="${players.isEmpty()}" style="border-bottom: 1px solid #eee;">
-                    <td colspan="3" style="padding: 20px; text-align: center; color: #999;">No players found</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Pagination Footer -->
-        <div style="padding: 15px 20px; border-top: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #666;">
-            <span id="showing-info">Showing <span th:text="${startIndex}">1</span> to <span th:text="${endIndex}">10</span> of <span th:text="${total}">100</span> entries</span>
-
-            <!-- Pagination Controls -->
-            <div style="display: flex; gap: 5px; align-items: center;">
-                <!-- First Page -->
-                <a th:if="${currentPage > 0}" th:href="@{/players(search=${search}, page=0, size=${size}, sort=${sort}, direction=${direction})}"
-                   style="padding: 6px 10px; border: 1px solid #ddd; background: white; border-radius: 4px; font-size: 12px; text-decoration: none; color: #333; cursor: pointer;">
-                    « First
-                </a>
-                <span th:if="${currentPage == 0}" style="padding: 6px 10px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; font-size: 12px; color: #999;">
-                    « First
-                </span>
-
-                <!-- Previous Page -->
-                <a th:if="${hasPrevious}" th:href="@{/players(search=${search}, page=${currentPage - 1}, size=${size}, sort=${sort}, direction=${direction})}"
-                   style="padding: 6px 10px; border: 1px solid #ddd; background: white; border-radius: 4px; font-size: 12px; text-decoration: none; color: #333; cursor: pointer;">
-                    ‹ Prev
-                </a>
-                <span th:if="${!hasPrevious}" style="padding: 6px 10px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; font-size: 12px; color: #999;">
-                    ‹ Prev
-                </span>
-
-                <!-- Page Numbers -->
-                <span style="padding: 6px 10px; font-size: 12px;">
-                    Page <span th:text="${currentPage + 1}">1</span> of <span th:text="${totalPages}">5</span>
-                </span>
-
-                <!-- Next Page -->
-                <a th:if="${hasNext}" th:href="@{/players(search=${search}, page=${currentPage + 1}, size=${size}, sort=${sort}, direction=${direction})}"
-                   style="padding: 6px 10px; border: 1px solid #ddd; background: white; border-radius: 4px; font-size: 12px; text-decoration: none; color: #333; cursor: pointer;">
-                    Next ›
-                </a>
-                <span th:if="${!hasNext}" style="padding: 6px 10px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; font-size: 12px; color: #999;">
-                    Next ›
-                </span>
-
-                <!-- Last Page -->
-                <a th:if="${currentPage < totalPages - 1}" th:href="@{/players(search=${search}, page=${totalPages - 1}, size=${size}, sort=${sort}, direction=${direction})}"
-                   style="padding: 6px 10px; border: 1px solid #ddd; background: white; border-radius: 4px; font-size: 12px; text-decoration: none; color: #333; cursor: pointer;">
-                    Last »
-                </a>
-                <span th:if="${currentPage >= totalPages - 1}" style="padding: 6px 10px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; font-size: 12px; color: #999;">
-                    Last »
-                </span>
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
-</div>
 
-<div th:insert="fragments/base :: assetsScripts"></div>
+    <div th:insert="fragments/base :: assetsScripts"></div>
 </body>
 </html>

@@ -1,23 +1,15 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:fragment="navbar">
-    <a th:href="@{/}">Home</a>
-    <a th:href="@{/fighters}">Fighters</a>
-    <a th:href="@{/players}">Players</a>
-
-    <div sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/create-fighter}">Create Fighter</a>
-        <a th:href="@{/h2-console}">H2 Console</a>
-    </div>
-
-    <div sec:authorize="isAuthenticated()">
-        <a th:href="@{/logout}">Logout</a>
-    </div>
-
-    <div sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">Login</a>
-        <a th:href="@{/register}">Register</a>
-    </div>
+    <th:block th:fragment="main-nav">
+        <nav th:fragment="main-nav">
+    <ul class="navbar">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/players}">Players</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+        <li><a th:href="@{/logout}">Logout</a></li>
+    </ul>
 </nav>
+    </th:block>
 </body>
 </html>
