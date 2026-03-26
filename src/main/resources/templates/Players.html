@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Players</title>
-    <div th:insert="fragments/base :: assetsHead"></div>
-</head>
+<head th:replace="fragments/base :: assetsHead"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 

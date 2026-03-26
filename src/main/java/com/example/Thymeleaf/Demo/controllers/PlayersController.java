@@ -11,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class PlayersController {
 
@@ -30,43 +27,45 @@ public class PlayersController {
             @RequestParam(name = "size", required = false, defaultValue = "10") int size,
             @RequestParam(name = "sort", required = false, defaultValue = "id") String sortBy,
             @RequestParam(name = "direction", required = false, defaultValue = "ASC") String direction,
-            Model model){
+            Model model) {
 
-
+        // 1. Handle Sorting logic
         Sort.Direction sortedDirection = direction.equalsIgnoreCase("DESC") ? Sort.Direction.DESC : Sort.Direction.ASC;
-        Sort sort = Sort.by(sortedDirection,sortBy);
+        Sort sort = Sort.by(sortedDirection, sortBy);
 
-        Pageable pageable = PageRequest.of(page,size,sort);
+        // 2. Create Pageable object
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-
+        // 3. Fetch Data
         Page<Player> playerPage;
-
-        if(search!=null && !search.isEmpty()){
+        if (search != null && !search.trim().isEmpty()) {
             playerPage = playerService.findPlayerByName(search, pageable);
-        }else{
-
+        } else {
             playerPage = playerService.getAllPlayersPageable(pageable);
-
         }
 
+        // 4. Map Attributes to Thymeleaf
         model.addAttribute("players", playerPage.getContent());
-        model.addAttribute("total", playerPage.getTotalElements());
+        model.addAttribute("total", playerPage.getTotalElements()); // Matches ${total} in Players.html
         model.addAttribute("size", size);
-        model.addAttribute("currentPage",page);
+        model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", playerPage.getTotalPages());
         model.addAttribute("search", search);
         model.addAttribute("sort", sortBy);
         model.addAttribute("direction", direction);
-        //Switching the Pagination
+
+        // 5. Pagination UI Helpers
         model.addAttribute("hasPrevious", playerPage.hasPrevious());
         model.addAttribute("hasNext", playerPage.hasNext());
-        model.addAttribute("startIndex", page * size +1);
-        model.addAttribute("endIndex", Math.min((page+1)*size,(int)playerPage.getTotalElements()));
 
+        // Logic for "Showing X to Y of Z"
+        int startIndex = (page * size) + 1;
+        // Ensure endIndex doesn't exceed total elements
+        long endIndex = Math.min((long) (page + 1) * size, playerPage.getTotalElements());
 
-
+        model.addAttribute("startIndex", playerPage.getTotalElements() == 0 ? 0 : startIndex);
+        model.addAttribute("endIndex", endIndex);
 
         return "Players";
     }
-
 }

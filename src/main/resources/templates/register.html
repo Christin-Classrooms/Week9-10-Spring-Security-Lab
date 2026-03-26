@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: assetsHead"></head>
+<head th:replace="fragments/base :: assetsHead"></head>
 <body>
 
-<div th:replace="navbar :: navbar"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container mt-5">
     <h2>Register</h2>
@@ -29,6 +29,6 @@
     </form>
 </div>
 
-<div th:replace="base :: assetsScripts"></div>
+<div th:replace="fragments/base :: assetsScripts"></div>
 </body>
 </html>

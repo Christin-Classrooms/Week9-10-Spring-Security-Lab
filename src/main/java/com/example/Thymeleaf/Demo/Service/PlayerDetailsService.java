@@ -10,19 +10,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlayerDetailsService implements UserDetailsService {
 
-    @Autowired
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
+
+    public PlayerDetailsService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // Log this to see if the email is actually reaching the service
+        System.out.println("Login attempt for: " + email);
+
         Player player = playerRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Not found: " + email));
 
         return User.builder()
-                .username(player.getEmail())     // login field
-                .password(player.getPassword())  // encoded password
-                .roles(player.getRole())         // PLAYER or ADMIN
+                .username(player.getEmail())
+                .password(player.getPassword())
+                .roles(player.getRole())
                 .build();
     }
-
 }
