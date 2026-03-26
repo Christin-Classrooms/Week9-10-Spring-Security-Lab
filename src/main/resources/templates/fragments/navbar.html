@@ -1,4 +1,8 @@
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- SEC NAMESPACE ADDED NEEDED FOR sec:authorize -->
+<nav th:fragment="navbar"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">TekkenReborn</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,19 +16,29 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/players}">Players</a>
                 </li>
+                <!-- REGISTER LINK UPDATED FROM CREATE-PLAYER -->
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/create-player}">Create Player</a>
+                    <a class="nav-link" th:href="@{/register}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/fighters}">Fighters</a>
                 </li>
-                <li class="nav-item">
+                <!-- ADMIN ONLY PLAYERS DONT SEE THIS -->
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/create-fighter}">Create Fighter</a>
+                </li>
+                <!-- H2 CONSOLE ADMIN ONLY -->
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/h2-console}">H2 Console</a>
                 </li>
             </ul>
             <form class="d-flex" role="search" method="get" th:action="@{/players}">
                 <input name="id" class="form-control me-2" type="search" placeholder="Player ID" aria-label="Search"/>
                 <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            <!-- LOGOUT SHOW TO ALL LOGGED IN USERS -->
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST" class="ms-2">
+                <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
             </form>
         </div>
     </div>

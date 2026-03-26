@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String getHomePage(Model model){
+    public String getHomePage(Model model) {
 
         model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
         return "Home";
+    }
+
+    // SERVE THE LOGIN PAGE w/ POST IS HANDLED BY SPRING SECURITY
+    @GetMapping("/login")
+    public String getLoginPage() {
+        return "login";
     }
 }
