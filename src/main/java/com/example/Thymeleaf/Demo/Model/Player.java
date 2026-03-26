@@ -19,14 +19,17 @@ public class Player {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Size(min=2, max=240, message="name size must be > 2 and <240")
-    @NotBlank(message="The name is required")
+
+    @Size(min = 2, max = 240, message = "name size must be > 2 and <240")
+    @NotBlank(message = "The name is required")
     private String name;
+
     @NotBlank(message = "The email is not required")
     @Email(message = "invalid email")
     private String email;
 
+    @NotBlank(message = "Password is required")
+    private String password;
 
-
-
+    private String role;
 }
