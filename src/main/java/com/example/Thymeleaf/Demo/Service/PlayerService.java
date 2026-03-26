@@ -5,6 +5,8 @@ import com.example.Thymeleaf.Demo.repository.PlayerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class PlayerService {
     }
 
     public void addPlayer(Player player) {
+            player.setPassword(passwordEncoder.encode(player.getPassword()));
+            player.setRole("PLAYER");
 
         repo.save(player);
     }
@@ -42,5 +46,8 @@ public class PlayerService {
     public Player getPlayerById(int id) {
         return repo.findById(id).orElse(null);
     }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 }
