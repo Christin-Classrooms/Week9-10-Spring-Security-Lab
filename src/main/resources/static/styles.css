@@ -1,37 +1,47 @@
-:root{
-    --brand:#0d6efd;
+:root {
+  --brand: #0d6efd;
 }
-body{
-    background:#f8f9fa;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+body {
+  background: #f8f9fa;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
 }
-.app-container{
-    max-width:960px;
-    margin:40px auto;
+.app-container {
+  max-width: 960px;
+  margin: 40px auto;
 }
-.app-header{
-    margin-bottom:20px;
+.app-header {
+  margin-bottom: 20px;
 }
-.players-card{
-    padding:20px;
-    background:#fff;
-    border-radius:8px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+.players-card {
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
-.status-badge-online{
-    background: #198754;
-    color: #fff;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:0.85rem;
+.status-badge-online {
+  background: #198754;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
 }
-.status-badge-offline{
-    background: #dc3545;
-    color:#fff;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:0.85rem;
+.status-badge-offline {
+  background: #dc3545;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
 }
-.navbar-brand{
-    font-weight:700;
+.navbar-brand {
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+body {
+  background-color: #f8f9fa !important;
 }

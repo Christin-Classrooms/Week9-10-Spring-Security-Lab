@@ -2,71 +2,51 @@ package com.example.Thymeleaf.Demo.controllers;
 
 import com.example.Thymeleaf.Demo.Model.Player;
 import com.example.Thymeleaf.Demo.Service.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class PlayersController {
 
-    private final PlayerService playerService;
-
-    public PlayersController(PlayerService playerService) {
-        this.playerService = playerService;
-    }
+    @Autowired
+    private PlayerService playerService;
 
     @GetMapping("/players")
-    public String getPlayers(
-            @RequestParam(name = "search", required = false, defaultValue = "") String search,
-            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(name = "size", required = false, defaultValue = "10") int size,
-            @RequestParam(name = "sort", required = false, defaultValue = "id") String sortBy,
-            @RequestParam(name = "direction", required = false, defaultValue = "ASC") String direction,
-            Model model){
+    public String showPlayers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sort,
+            @RequestParam(defaultValue = "ASC") String direction,
+            @RequestParam(required = false) String search,
+            Model model) {
 
+        // Get actual paged data from the service
+        Page<Player> playerPage = playerService.getPlayersPaged(page, size, sort, direction);
 
-        Sort.Direction sortedDirection = direction.equalsIgnoreCase("DESC") ? Sort.Direction.DESC : Sort.Direction.ASC;
-        Sort sort = Sort.by(sortedDirection,sortBy);
-
-        Pageable pageable = PageRequest.of(page,size,sort);
-
-
-        Page<Player> playerPage;
-
-        if(search!=null && !search.isEmpty()){
-            playerPage = playerService.findPlayerByName(search, pageable);
-        }else{
-
-            playerPage = playerService.getAllPlayersPageable(pageable);
-
-        }
-
+        // Map data to the attributes your template expects
         model.addAttribute("players", playerPage.getContent());
         model.addAttribute("total", playerPage.getTotalElements());
-        model.addAttribute("size", size);
-        model.addAttribute("currentPage",page);
+        model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", playerPage.getTotalPages());
-        model.addAttribute("search", search);
-        model.addAttribute("sort", sortBy);
+        model.addAttribute("size", size);
+        model.addAttribute("sort", sort);
         model.addAttribute("direction", direction);
-        //Switching the Pagination
+        model.addAttribute("search", search);
+        
+        // Pagination logic for buttons
         model.addAttribute("hasPrevious", playerPage.hasPrevious());
         model.addAttribute("hasNext", playerPage.hasNext());
-        model.addAttribute("startIndex", page * size +1);
-        model.addAttribute("endIndex", Math.min((page+1)*size,(int)playerPage.getTotalElements()));
+        
+        // Calculate the "Showing X to Y" info
+        int start = page * size + 1;
+        long end = Math.min(start + size - 1, playerPage.getTotalElements());
+        model.addAttribute("startIndex", start);
+        model.addAttribute("endIndex", end);
 
-
-
-
-        return "Players";
+        return "players";
     }
-
 }
