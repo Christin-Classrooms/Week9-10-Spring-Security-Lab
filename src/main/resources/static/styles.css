@@ -1,37 +1,71 @@
-:root{
-    --brand:#0d6efd;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
 }
-body{
-    background:#f8f9fa;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 20px;
+    background-color: #333;
+    display: flex;
+    gap: 15px;
 }
-.app-container{
-    max-width:960px;
-    margin:40px auto;
+
+.navbar li {
+    display: inline;
 }
-.app-header{
-    margin-bottom:20px;
+
+.navbar li a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    display: block;
 }
-.players-card{
-    padding:20px;
-    background:#fff;
-    border-radius:8px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+
+.navbar li a:hover {
+    background-color: #555;
+    border-radius: 4px;
 }
-.status-badge-online{
-    background: #198754;
-    color: #fff;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:0.85rem;
+
+.container-center {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-.status-badge-offline{
-    background: #dc3545;
-    color:#fff;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:0.85rem;
+
+h2 {
+    text-align: center;
 }
-.navbar-brand{
-    font-weight:700;
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+.card-player {
+    padding: 20px;
+    background-color: #e2f0ff;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.subtitle-text {
+    color: #555;
 }
