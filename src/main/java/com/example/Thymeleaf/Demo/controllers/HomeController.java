@@ -13,4 +13,9 @@ public class HomeController {
         model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
         return "Home";
     }
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
 }
