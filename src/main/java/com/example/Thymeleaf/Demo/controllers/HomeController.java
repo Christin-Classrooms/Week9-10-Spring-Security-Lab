@@ -13,4 +13,10 @@ public class HomeController {
         model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
         return "Home";
     }
+
+    // Part 5: Serve the login page (Spring Security handles POST /login automatically)
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
 }

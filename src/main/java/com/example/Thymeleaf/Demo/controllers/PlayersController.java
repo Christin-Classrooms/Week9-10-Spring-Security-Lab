@@ -23,7 +23,7 @@ public class PlayersController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/players")
+    @GetMapping({"/players", "/players/"})
     public String getPlayers(
             @RequestParam(name = "search", required = false, defaultValue = "") String search,
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
