@@ -1,20 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <div th:insert="fragments/base :: assetsHead"></div>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
 </head>
 <body>
 
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-    <div class="app-container text-center">
-        <div class="players-card">
-            <h2 th:text="${message}">Welcome</h2>
-            <p class="text-muted">Use the navigation above to browse the site.</p>
-        </div>
-    </div>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-    <div th:insert="fragments/base :: assetsScripts"></div>
+<div class="app-container text-center">
+    <div class="players-card p-4">
+
+        <h2 th:text="${message}">Welcome</h2>
+        <p class="text-muted">Use the navigation above to browse the site.</p>
+
+        <!-- 🔐 LOGIN BUTTON (only if NOT logged in) -->
+        <div class="mt-4" sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" class="btn btn-dark btn-lg me-2">
+                Login
+            </a>
+
+            <a th:href="@{/register}" class="btn btn-outline-primary btn-lg">
+                Register
+            </a>
+        </div>
+
+        <!-- 👋 WELCOME MESSAGE (only if logged in) -->
+        <div class="mt-4" sec:authorize="isAuthenticated()">
+            <p class="text-success fw-bold">You are logged in 🎉</p>
+        </div>
+
+    </div>
+</div>
+
+<div th:insert="~{fragments/base :: assetsScripts}"></div>
+
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="fragments/base :: assetsHead"></div>
+
+<body>
+
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="app-container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+
+    <div class="players-card p-4" style="width: 450px; max-width: 100%;">
+
+        <div class="text-center mb-4">
+            <h2>Register</h2>
+            <p class="text-muted">Create your account</p>
+        </div>
+
+        <form th:action="@{/register}" th:object="${player}" method="POST" novalidate>
+
+            <!-- NAME -->
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text"
+                       class="form-control"
+                       th:field="*{name}"
+                       th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : '' }"
+                       placeholder="Enter your name"
+                       required>
+
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}">
+                </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email"
+                       class="form-control"
+                       th:field="*{email}"
+                       th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : '' }"
+                       placeholder="Enter your email"
+                       required>
+
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('email')}"
+                     th:errors="*{email}">
+                </div>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input type="password"
+                       class="form-control"
+                       th:field="*{password}"
+                       placeholder="Enter password"
+                       required>
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Register
+                </button>
+            </div>
+
+            <!-- LOGIN LINK -->
+            <div class="text-center mt-3">
+                <small>
+                    Already have an account?
+                    <a th:href="@{/login}">Login</a>
+                </small>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div th:insert="fragments/base :: assetsScripts"></div>
+
+</body>
+</html>
