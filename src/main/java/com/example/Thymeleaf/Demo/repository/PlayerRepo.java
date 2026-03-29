@@ -1,3 +1,4 @@
+/*
 package com.example.Thymeleaf.Demo.repository;
 
 
@@ -23,8 +24,13 @@ public class PlayerRepo {
 
     public void save(Player player){
 
-        String sql = "insert into players (name, email) values(?,?)";
-        jdbcTemplate.update(sql, player.getName(),player.getEmail());
+        String sql = "insert into players (name, email, password, role) values(?,?,?,?)";
+        jdbcTemplate.update(sql,
+            player.getName(),
+            player.getEmail(),
+            player.getPassword(),
+            player.getRole()
+    );
 
 
     }
@@ -86,4 +92,4 @@ public class PlayerRepo {
 
 
 
-}
+}*/
