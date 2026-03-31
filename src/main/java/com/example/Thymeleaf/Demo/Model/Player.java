@@ -25,7 +25,10 @@ public class Player {
     @NotBlank(message = "The email is not required")
     @Email(message = "invalid email")
     private String email;
-
+    @Column(nullable = false)
+    private String password;
+    @Column(nullable = false)
+    private String role;
 
 
 
