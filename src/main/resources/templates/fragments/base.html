@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
   <head th:fragment="assetsHead">
     <meta charset="UTF-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -9,5 +10,16 @@
   <div th:fragment="assetsScripts">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   </div>
+
+  <div sec:authorize="hasRole('ADMIN')">
+            <a href="/create-fighter">Create Fighter</a>
+            <a href="/h2-console">H2 Console</a>
+        </div>
+
+  <div sec:authorize="isAuthenticated()">
+            <form method="post" action="/logout" style="display: inline;">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
 
 </html>
