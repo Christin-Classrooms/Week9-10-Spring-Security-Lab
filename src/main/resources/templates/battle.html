@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Initiate Battle - TekkenReborn</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="app-container text-center">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="players-card p-5">
+                    <h2 class="mb-4 text-warning" th:if="${loggedInPlayer != null}" th:text="'Welcome, ' + ${loggedInPlayer.name} + '!'">Welcome, Player!</h2>
+                    <h2 class="mb-4 text-warning" th:if="${loggedInPlayer == null}">Welcome to the Arena!</h2>
+                    
+                    <p class="text-muted mb-5 section-subtitle">Choose your champions and start the fight.</p>
+                    
+                    <div th:if="${error}" class="alert alert-danger mb-4" th:text="${error}">Error message</div>
+
+                    <form th:action="@{/battle}" method="POST">
+                        <div class="row g-4">
+                            <div class="col-md-6 text-start">
+                                <label for="fighter1Id" class="form-label text-light fs-5">Fighter 1</label>
+                                <select id="fighter1Id" name="fighter1Id" class="form-select bg-dark text-white border-secondary py-2">
+                                    <option th:each="fighter : ${fighters}" 
+                                            th:value="${fighter.id}" 
+                                            th:text="${fighter.name}">Fighter Name</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 text-start">
+                                <label for="fighter2Id" class="form-label text-light fs-5">Fighter 2</label>
+                                <select id="fighter2Id" name="fighter2Id" class="form-select bg-dark text-white border-secondary py-2">
+                                    <option th:each="fighter : ${fighters}" 
+                                            th:value="${fighter.id}" 
+                                            th:text="${fighter.name}">Fighter Name</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-danger btn-lg py-3 fw-bold arena-btn">FIGHT!</button>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a th:href="@{/fighters}" class="text-info fw-bold text-decoration-none">← Back to Fighters</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/base :: assetsScripts"></div>
+</body>
+</html>

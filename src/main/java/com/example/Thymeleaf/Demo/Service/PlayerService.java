@@ -11,26 +11,27 @@ import java.util.List;
 @Service
 public class PlayerService {
 
-    private PlayerRepository repo;
+    private final PlayerRepository repo;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    public PlayerService(PlayerRepository repo) {
-
+    public PlayerService(PlayerRepository repo, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         this.repo = repo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Player> getAllPlayers() {
-        
         return repo.findAll();
     }
 
     public Page<Player> getAllPlayersPageable(Pageable pageable) {
-
         return repo.findAll(pageable);
-
     }
 
     public void addPlayer(Player player) {
-
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
+        if (player.getRole() == null) {
+            player.setRole("PLAYER");
+        }
         repo.save(player);
     }
 

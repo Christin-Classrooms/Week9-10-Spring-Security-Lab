@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Battle Result - TekkenReborn</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="app-container text-center">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="players-card p-5">
+                    <div class="battle-winner mb-5 text-center">
+                        <h1 class="display-3 text-warning text-uppercase fw-bold mb-0">
+                            🏆 <span th:text="${battle.winnerName}">Winner</span> wins!
+                        </h1>
+                    </div>
+                    
+                    <div class="battle-log border-secondary border rounded p-4 text-start mb-5 bg-dark text-light shadow-lg" style="max-height: 500px; overflow-y: auto;">
+                        <h4 class="text-secondary border-bottom border-secondary pb-2 mb-3">BATTLE LOG</h4>
+                        <p style="white-space: pre-wrap; font-family: 'Courier New', Courier, monospace;" th:text="${battle.battleLog}">Battle Log text here...</p>
+                    </div>
+                    
+                    <div class="battle-meta text-muted mb-5 border-top border-secondary pt-3 fs-5">
+                         Battle initiated by: <strong class="text-white fs-4 ms-2" th:text="${loggedInPlayer.name}">Player Name</strong>
+                    </div>
+                    
+                    <div class="d-grid gap-3 d-md-flex justify-content-center">
+                        <a th:href="@{/battle}" class="btn btn-primary btn-lg px-5 fw-bold py-3 arena-btn">Fight Again</a>
+                        <a th:href="@{/fighters}" class="btn btn-outline-info btn-lg px-5 fw-bold py-3">Back to Fighters</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/base :: assetsScripts"></div>
+</body>
+</html>

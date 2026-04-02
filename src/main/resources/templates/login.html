@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - TekkenReborn</title>
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <div class="app-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="players-card mt-5">
+                    <h2 class="text-center mb-4">Login</h2>
+                    <div th:if="${param.error}" class="alert alert-danger text-dark">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success text-dark">
+                        You have been logged out.
+                    </div>
+                    <form th:action="@{/login}" method="post">
+                        <div class="mb-3 text-start">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" required autofocus placeholder="Enter your name">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" required placeholder="Enter your password">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Log In</button>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="text-center mt-3">
+                        Don't have an account? <a th:href="@{/register}" class="btn btn-outline-info btn-sm">Register here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="fragments/base :: assetsScripts"></div>
+</body>
+</html>
